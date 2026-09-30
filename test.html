@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QuaggaJS Barcode Scanner Test</title>
+</head>
+<body>
+  <h1>QuaggaJS Barcode Scanner Test</h1>
+  <div id="scanner-container"></div>
+
+  <!-- Include QuaggaJS library -->
+  <script src="https://cdn.jsdelivr.net/npm/quagga/dist/quagga.min.js"></script>
+
+  <script>
+    // Initialize QuaggaJS
+    Quagga.init({
+      inputStream: {
+        name: "Live",
+        type: "LiveStream",
+        target: document.querySelector('#scanner-container'),
+        constraints: {
+          facingMode: "environment" // Use the rear camera (if available)
+        },
+      },
+      decoder: {
+        readers: ["code_128_reader"] // Configure barcode types to decode
+      }
+    }, function (err) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log("Initialization finished. Ready to start");
+      Quagga.start();
+    });
+
+    Quagga.onDetected(function (result) {
+      console.log("Barcode detected and decoded: ", result);
+      alert("Barcode detected: " + result.codeResult.code);
+      Quagga.stop(); // Stop scanner after detecting a barcode (you might handle this differently based on your requirements)
+    });
+  </script>
+</body>
+</html>

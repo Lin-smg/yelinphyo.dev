@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Falling Snow Effect</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    .snow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    .snowflake {
+      position: absolute;
+      background: #fff;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: falling linear infinite;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #fff;
+      pointer-events: none;
+      animation: falling linear infinite;
+    }
+
+    @keyframes falling {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="snow-container" id="snow-container">
+    <!-- Snowflakes will be dynamically added here -->
+  </div>
+
+  <div style="align-items: center; text-align: center; background-color: gray; height: 200px;">
+    hello world
+</div>
+  <script>
+    const container = document.getElementById('snow-container');
+
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * window.innerWidth + 'px';
+      snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+      snowflake.style.opacity = Math.random();
+      snowflake.style.fontSize = Math.random() * 12 + 8 + 'px';
+      snowflake.style.animationDelay = Math.random() * 2 + 's'; // Delay each snowflake
+
+    //   container.appendChild(snowflake);
+
+      ///
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.animationDuration = Math.random() * 5 + 3 + 's'; // Vary the speed
+      star.style.opacity = Math.random();
+      star.style.animationDelay = Math.random() * 2 + 's'; // Delay each star
+
+      container.appendChild(star);
+
+      console.log('snow')
+      setTimeout(() => {
+        snowflake.remove();
+        star.remove();
+      }, 5000);
+    }
+
+    function showSnow() {
+        createSnowflake();
+        createSnowflake();
+        createSnowflake();
+        createSnowflake();
+        createSnowflake();
+    }
+    showSnow();
+    
+    setInterval(showSnow, 1000);
+  </script>
+</body>
+</html>
